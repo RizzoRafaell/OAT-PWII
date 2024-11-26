@@ -13,6 +13,9 @@ urlpatterns = [
     path('assistidos/', views.listar_assistidos, name='listar_assistidos'),
     path('nao-assistidos/', views.listar_nao_assistidos, name='listar_nao_assistidos'),
     path('marcar-assistido/<int:id>/', views.marcar_assistido, name='marcar_assistido'),
+    path('alternar_status/<int:filme_id>/', views.alternar_status, name='alternar_status'),
+    path('sugestao/', views.obter_sugestao_filme, name='sugestao_filme'),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:

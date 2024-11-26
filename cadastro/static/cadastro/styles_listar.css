@@ -153,3 +153,123 @@ h2 {
     border-radius: 5px;
     margin-bottom: 10px;
 }
+
+.descricao {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.filme-serie-item .descricao {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.filme-serie-item {
+    background-color: #333;
+    border: 1px solid #555;
+    padding: 15px;
+    width: 220px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.filme-serie-item img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.filme-serie-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    color: white;
+}
+
+.filme-serie-item .categoria {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 10px;
+}
+.ver-mais {
+    background-color: transparent;
+    color: #e50914; /* Vermelho Netflix */
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.ver-mais:hover {
+    color: #f40612;
+}
+
+.status {
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.status.assistido {
+    color: #fff;
+    background-color: #4caf50; /* Verde para assistido */
+}
+
+.status.nao-assistido {
+    color: #fff;
+    background-color: #e50914; /* Vermelho para não assistido */
+}
+
+
+.filme {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filme-imagem {
+    flex: 1;
+    max-width: 200px;
+}
+
+.imagem-filme {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.filme-detalhes {
+    flex: 2;
+    padding-left: 20px;
+}
+
+.filme-detalhes h3 {
+    color: #333;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.filme-detalhes p {
+    color: #555;
+    font-size: 16px;
+    margin: 5px 0;
+}
+
+.filme-detalhes strong {
+    color: #333;
+}

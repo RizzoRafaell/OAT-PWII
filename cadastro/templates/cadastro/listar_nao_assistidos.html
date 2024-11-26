@@ -14,12 +14,16 @@
     <ul>
         {% for filme in filmes_series %}
             <li>
-                <h3>{{ filme.nome }}</h3>
-                <p>{{ filme.descricao }}</p>
                 <img src="{{ filme.capa.url }}" alt="Capa de {{ filme.nome }}">
+                <h3>{{ filme.nome }}</h3>
+                <p class="categoria">Categoria: {{ filme.categoria }}</p>
+                <p class="descricao" data-full-text="{{ filme.descricao }}">
+                    {{ filme.descricao|truncatechars:100 }}
+                </p>
+                <button class="ver-mais">Ver mais</button>
                 <form method="POST" action="{% url 'marcar_assistido' filme.id %}">
                     {% csrf_token %}
-                    <button type="submit">Marcar como Assistido</button>
+                    <button type="submit" class="button">Marcar como Assistido</button>
                 </form>
             </li>
         {% empty %}
@@ -27,5 +31,27 @@
         {% endfor %}
     </ul>
     <a href="{% url 'listar_assistidos' %}" class='button'>Ver Assistidos</a>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.ver-mais');
+    
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const descricao = this.previousElementSibling; // Pega o parágrafo antes do botão
+                    const fullText = descricao.getAttribute('data-full-text');
+    
+                    if (this.textContent === 'Ver mais') {
+                        descricao.textContent = fullText;
+                        descricao.style.whiteSpace = 'normal'; // Permitir quebra de linha
+                        this.textContent = 'Ver menos';
+                    } else {
+                        descricao.textContent = fullText.substring(0, 100) + '...';
+                        descricao.style.whiteSpace = 'nowrap'; // Voltar ao truncamento
+                        this.textContent = 'Ver mais';
+                    }
+                });
+            });
+        });
+    </script>
 </div>
 {% endblock %}

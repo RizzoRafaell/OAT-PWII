@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'cadastro/styles_listar.css' %}">
+    <title>Sugestões de Filmes</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'listar_filmes_series' %}">Home</a></li>
+            <li><a href="{% url 'criar_filme_serie' %}">Adicionar Filme/Série</a></li>
+            <li><a href="{% url 'listar_assistidos' %}">Assistidos</a></li>
+            <li><a href="{% url 'listar_nao_assistidos' %}">Não Assistidos</a></li>
+            <li><a href="{% url 'sugestao_filme' %}">Sugestão de Filme</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h2>Sugestões de Filmes</h2>
+        
+        {% if filmes %}
+            <div class="filmes-lista">
+                {% for filme in filmes %}
+                    <div class="filme">
+                        <div class="filme-imagem">
+                            <img src="{{ filme.Poster }}" alt="{{ filme.Title }}" class="imagem-filme">
+                        </div>
+                        <div class="filme-detalhes">
+                            <h3>{{ filme.Title }}</h3>
+                            <p><strong>Categorias:</strong> {{ filme.Genre }}</p>
+                            <p><strong>Descrição:</strong> {{ filme.Plot }}</p>
+                            <p><strong>Atores:</strong> {{ filme.Actors }}</p>
+                            <p><strong>Ano de Lançamento:</strong> {{ filme.Released }}</p>
+                            <p><strong>Classificação:</strong> {{ filme.Rated }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>{{ erro }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

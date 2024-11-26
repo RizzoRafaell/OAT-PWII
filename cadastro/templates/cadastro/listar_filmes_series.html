@@ -20,13 +20,13 @@
             <li><a href="{% url 'criar_filme_serie' %}">Adicionar Filme/Série</a></li>  <!-- Página de adicionar filme -->
             <li><a href="{% url 'listar_assistidos' %}">Assistidos</a></li>
             <li><a href="{% url 'listar_nao_assistidos' %}">Não Assistidos</a></li>
+            <li><a href="{% url 'sugestao_filme' %}">Sugestão de filme</a></li>
             
         </ul>
     </nav>
     <div class="container">
         <h2>Lista de Filmes e Séries</h2>
         <div class="filmes-series-list">
-            <!-- Loop de filmes/séries gerado pelo backend -->
             {% for filme_serie in filmes_series %}
                 <div class="filme-serie-item">
                     {% if filme_serie.capa %}
@@ -35,16 +35,72 @@
                         <p>Sem imagem disponível</p>
                     {% endif %}
                     <h3>{{ filme_serie.nome }}</h3>
-                    <p>{{ filme_serie.descricao }}</p>
+                    <p class="descricao" data-full-text="{{ filme_serie.descricao }}">
+                        {{ filme_serie.descricao|truncatechars:100 }}
+                    </p>
+                    <button class="ver-mais">Ver mais</button>
                     <p>Categoria: {{ filme_serie.categoria }}</p>
+                    <p>Status: 
+                        {% if filme_serie.assistido %}
+                            <span class="status assistido">Assistido</span>
+                        {% else %}
+                            <span class="status nao-assistido">Não Assistido</span>
+                        {% endif %}
+                    </p>
                     <div class="actions">
                         <a href="{% url 'editar_filme_serie' filme_serie.id %}" class="button">Editar</a>
                         <a href="{% url 'excluir_filme_serie' filme_serie.id %}" class="button">Excluir</a>
                         {% comment %} <a href="{% url 'marcar_como_assistido' filme_serie.id %}" class="button">Já Assisti</a> <!-- Novo botão --> {% endcomment %}
                     </div>
                 </div>
+                
+                <script>
+                    async function fetchSugestao() {
+                        try {
+                            const response = await fetch("{% url 'sugestao_filme' %}");
+                            if (response.ok) {
+                                const data = await response.json();
+                
+                                // Preenchendo os dados no HTML
+                                document.getElementById("quote").textContent = data.Plot || "Citação não disponível.";
+                                document.getElementById("role").textContent = data.Genre || "Gênero desconhecido.";
+                                document.getElementById("show").textContent = data.Title || "Filme desconhecido.";
+                
+                                // Exibe o conteúdo
+                                document.getElementById("sugestaoConteudo").style.display = "block";
+                            } else {
+                                alert("Erro ao buscar a sugestão.");
+                            }
+                        } catch (error) {
+                            console.error("Erro ao buscar a sugestão:", error);
+                            alert("Erro ao buscar a sugestão.");
+                        }
+                    }
+                </script>
             {% endfor %}
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttons = document.querySelectorAll('.ver-mais');
+    
+            buttons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const descricao = this.previousElementSibling; // Pega o parágrafo antes do botão
+                    const fullText = descricao.getAttribute('data-full-text');
+    
+                    if (this.textContent === 'Ver mais') {
+                        descricao.textContent = fullText;
+                        descricao.style.whiteSpace = 'normal'; // Permitir quebra de linha
+                        this.textContent = 'Ver menos';
+                    } else {
+                        descricao.textContent = fullText.substring(0, 100) + '...';
+                        descricao.style.whiteSpace = 'nowrap'; // Voltar ao truncamento
+                        this.textContent = 'Ver mais';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
