@@ -1,0 +1,28 @@
+
+{% extends 'cadastro/base.html' %}
+
+{% load static %}
+
+{% block title %}Filmes e Séries Assistidos{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'cadastro/styles_listar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="assistidos">
+    <h2>Filmes e Séries Assistidos</h2>
+    <ul>
+        {% for filme in filmes_series %}
+            <li>
+                <h3>{{ filme.nome }}</h3>
+                <p>{{ filme.descricao }}</p>
+                <img src="{{ filme.capa.url }}" alt="Capa de {{ filme.nome }}">
+            </li>
+        {% empty %}
+            <p>Nenhum filme ou série assistido.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'listar_nao_assistidos' %}" class='button'>Ver Não Assistidos</a>
+</div>
+{% endblock %}

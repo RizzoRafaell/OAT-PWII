@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Cadastro de Filmes e Séries{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'cadastro/styles.css' %}">
+    {% block head %}  <!-- Este bloco pode ser sobrescrito nas páginas filhas -->
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'listar_filmes_series' %}">Home</a></li>
+            <li><a href="{% url 'criar_filme_serie' %}">Adicionar Filme/Série</a></li>
+            <li><a href="{% url 'listar_assistidos' %}">Assistidos</a></li>
+            <li><a href="{% url 'listar_nao_assistidos' %}">Não Assistidos</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

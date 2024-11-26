@@ -1,0 +1,50 @@
+{% comment %} {% extends 'cadastro/base.html' %} {% endcomment %}
+
+{% load static %}  <!-- Carregar as tags estáticas -->
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'cadastro/styles_listar.css' %}">
+
+    <title>Lista de Filmes e Séries</title>
+
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'listar_filmes_series' %}">Home</a></li>  <!-- Página de listar filmes e séries -->
+            <li><a href="{% url 'criar_filme_serie' %}">Adicionar Filme/Série</a></li>  <!-- Página de adicionar filme -->
+            <li><a href="{% url 'listar_assistidos' %}">Assistidos</a></li>
+            <li><a href="{% url 'listar_nao_assistidos' %}">Não Assistidos</a></li>
+            
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Lista de Filmes e Séries</h2>
+        <div class="filmes-series-list">
+            <!-- Loop de filmes/séries gerado pelo backend -->
+            {% for filme_serie in filmes_series %}
+                <div class="filme-serie-item">
+                    {% if filme_serie.capa %}
+                        <img src="{{ filme_serie.capa.url }}" alt="{{ filme_serie.nome }}">
+                    {% else %}
+                        <p>Sem imagem disponível</p>
+                    {% endif %}
+                    <h3>{{ filme_serie.nome }}</h3>
+                    <p>{{ filme_serie.descricao }}</p>
+                    <p>Categoria: {{ filme_serie.categoria }}</p>
+                    <div class="actions">
+                        <a href="{% url 'editar_filme_serie' filme_serie.id %}" class="button">Editar</a>
+                        <a href="{% url 'excluir_filme_serie' filme_serie.id %}" class="button">Excluir</a>
+                        {% comment %} <a href="{% url 'marcar_como_assistido' filme_serie.id %}" class="button">Já Assisti</a> <!-- Novo botão --> {% endcomment %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

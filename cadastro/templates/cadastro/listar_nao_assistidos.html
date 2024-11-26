@@ -1,0 +1,31 @@
+
+{% extends 'cadastro/base.html' %}
+{% load static %}
+
+{% block title %}Filmes e Séries Não Assistidos{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'cadastro/styles_listar.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="nao-assistidos">
+    <h2>Filmes e Séries Não Assistidos</h2>
+    <ul>
+        {% for filme in filmes_series %}
+            <li>
+                <h3>{{ filme.nome }}</h3>
+                <p>{{ filme.descricao }}</p>
+                <img src="{{ filme.capa.url }}" alt="Capa de {{ filme.nome }}">
+                <form method="POST" action="{% url 'marcar_assistido' filme.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Marcar como Assistido</button>
+                </form>
+            </li>
+        {% empty %}
+            <p>Nenhum filme ou série para assistir.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'listar_assistidos' %}" class='button'>Ver Assistidos</a>
+</div>
+{% endblock %}

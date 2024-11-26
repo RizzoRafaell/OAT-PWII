@@ -1,0 +1,39 @@
+{% extends 'cadastro/base.html' %}
+
+{% block title %}Filmes e Séries{% endblock %}
+
+{% block content %}
+<h2>Filmes e Séries</h2>
+<a href="{% url 'criar_filme_serie' %}" class="button">Adicionar Filme ou Série</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in filmes_series %}
+        <tr>
+            <td>
+                {% if item.imagem %}
+                <img src="{{ item.imagem.url }}" alt="{{ item.nome }}" style="width: 100px; height: auto;">
+                {% else %}
+                Sem imagem
+                {% endif %}
+            </td>
+            <td>{{ item.nome }}</td>
+            <td>{{ item.categoria }}</td>
+            <td>{{ item.descricao }}</td>
+            <td>
+                <a href="{% url 'editar_filme_serie' item.id %}" class="button">Editar</a>
+                <a href="{% url 'excluir_filme_serie' item.id %}" class="button" style="background-color: red;">Excluir</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

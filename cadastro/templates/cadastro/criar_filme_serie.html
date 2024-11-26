@@ -1,0 +1,105 @@
+{% extends 'cadastro/base.html' %}
+
+{% load static %}
+
+{% block title %}Adicionar Filme ou Série{% endblock %}
+
+{% block content %}
+<h2>Adicionar Filme ou Série</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+    </div>
+    <div class="form-group">
+        <label for="categoria">Categoria:</label>
+        <input type="text" id="categoria" name="categoria" required>
+    </div>
+    <div class="form-group">
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="5" required></textarea>
+    </div>
+    <div class="form-group">
+        <label for="imagem">Imagem da Capa:</label>
+        <input type="file" id="imagem" name="capa" accept="image/*">
+    </div>
+    
+    <!-- Adicionando um contêiner para os botões -->
+    <div class="button-container">
+        <button type="submit" class="button">Salvar</button>
+        <a href="{% url 'listar_filmes_series' %}" class="button">Voltar</a>
+    </div>
+</form>
+{% comment %} 
+<!-- CSS Inline -->
+<style>
+    body {
+        background-color: #141414; /* Fundo escuro, estilo Netflix */
+        font-family: 'Arial', sans-serif;
+        color: white;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        font-size: 16px;
+        color: #ccc; /* Cor clara para os rótulos */
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #555; /* Cor de borda escura */
+        border-radius: 4px;
+        background-color: #333; /* Fundo escuro para os campos */
+        color: white; /* Texto claro dentro dos campos */
+        font-size: 16px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: #e50914; /* Vermelho Netflix ao focar */
+        outline: none; /* Remove o contorno padrão do navegador */
+    }
+
+    .button-container {
+        display: flex; /* Usando flexbox para alinhar os botões */
+        gap: 20px; /* Espaço entre os botões */
+        justify-content: center; /* Centralizando os botões horizontalmente */
+        margin-top: 20px; /* Espaço acima dos botões */
+    }
+
+    .button {
+        background-color: #e50914; /* Vermelho Netflix */
+        color: white;
+        padding: 12px 25px;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #bbb;
+        font-size: 16px;
+        transition: background-color 0.3s ease; /* Transição suave */
+    }
+
+    .button:hover {
+        background-color: #f40612; /* Cor mais intensa de vermelho no hover */
+    }
+
+    .button:active {
+        background-color: #c8102e; /* Cor para quando o botão for pressionado */
+    }
+</style> {% endcomment %}
+
+{% endblock %}
